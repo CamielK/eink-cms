@@ -16,7 +16,11 @@ from PIL import Image
 
 out = "tmp.jpg"
 
-show_random_page = True
+# show_random_page = True
+show_random_page = False
+
+# do_rotate_90 = True
+do_rotate_90 = False
 
 
 def debug(text):
@@ -77,18 +81,31 @@ debug("Transforming image")
 # Target dimensions: 1872×1404
 # img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
 img = Image.open(tmpjpg)
-img = img.rotate(90, expand = True)
+
+if do_rotate_90:
+    img = img.rotate(90, expand = True)
 
 # # Resize
 max_width = 1872
 max_height = 1404
 input_width = img.width
 input_height = img.height
-resize_factor = max_height / input_height
-resize_width = math.floor(input_width * resize_factor)
-img = img.resize((1872, 1404), Image.HAMMING, (0, 0, resize_width, input_height))
+if do_rotate_90:
+    # Cut width
+    resize_factor = max_height / input_height
+    resize_width = math.floor(input_width * resize_factor)
+    resize_height = input_height
+else:
+    # Cut height
+    resize_factor = input_width / max_width
+    resize_width = input_width
+    resize_height = math.floor(max_height * resize_factor)
 
-img = img.rotate(180, expand = True)
+# do resize
+img = img.resize((max_width, max_height), Image.HAMMING, (0, 0, resize_width, resize_height))
+
+if do_rotate_90:
+    img = img.rotate(180, expand = True)
 
 debug("Saving to BMP")
 # file_out = "tmpbmp.bmp"

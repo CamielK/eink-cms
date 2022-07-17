@@ -23,4 +23,8 @@ echo "[$(timestamp)] Refreshing image to display"
 cd /home/pi/epaper/eink-cms/controller/it8951
 sudo ./epd -1.27
 
+# Get battery status
+#echo "[$(timestamp)] Getting battery status"
+#echo "get battery" | nc -q 0 127.0.0.1 8423
+
 echo "[$(timestamp)] Finished nyt bash script"

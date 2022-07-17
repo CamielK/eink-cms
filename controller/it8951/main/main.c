@@ -124,6 +124,7 @@ int main(int argc, char *argv[])
     Debug("panel height: %d\r\n", Panel_Height);
 
     Display_BMP(img_path, Panel_Width, Panel_Height, Init_Target_Memory_Addr, BitsPerPixel_4);
+//    Display_BMP(img_path, Panel_Width, Panel_Height, Init_Target_Memory_Addr, BitsPerPixel_8);
 
     //EPD_IT8951_Clear_Refresh(Dev_Info, Init_Target_Memory_Addr, GC16_Mode);
 
